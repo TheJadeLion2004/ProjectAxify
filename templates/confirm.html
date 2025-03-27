@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Capture</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Confirm Your Capture</h1>
+
+        <!-- Show Captured Image -->
+        <div class="image-container">
+            <img src="{{ image_url }}" alt="Captured Image">
+        </div>
+
+        <!-- Email Input Field -->
+        <form action="/process" method="post">
+            <label for="email">Enter your email:</label>
+            <input type="email" name="email" id="email" required>
+
+            <!-- Hidden input to pass the captured image path -->
+            <input type="hidden" name="image_path" value="{{ image_url }}">
+
+            <div class="button-container">
+                <button type="button" onclick="window.location.href='/'">Retake</button>
+                <button type="submit">Confirm</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

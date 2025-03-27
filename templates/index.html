@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Stream Capture</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Live Stream Capture</h1>
+        <div class="video-container">
+            <img id="video-stream" src="http:/<INSERT IP ADDRESS HERE>/video" alt="Live Stream">
+        </div>
+        <div class="button-container">
+            <button id="capture-btn" onclick="captureFrame()">Capture</button>
+        </div>
+    </div>
+
+    <script>
+        function captureFrame() {
+            fetch('/capture', { method: 'POST' })
+                .then(response => response.text())  // Get raw response text
+                .then(data => {
+                    document.write(data);  // Force browser to show response
+                })
+                .catch(error => console.error("Error capturing frame:", error));
+        }
+    </script>
+</body>
+</html>

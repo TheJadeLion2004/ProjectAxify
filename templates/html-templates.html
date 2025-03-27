@@ -1,0 +1,107 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Image Processing Service</h1>
+        
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        
+        <div class="card">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="file">Upload Image:</label>
+                    <div class="file-upload">
+                        <div class="file-upload-placeholder" id="upload-placeholder">
+                            <img src="{{ url_for('static', filename='img/upload-icon.svg') }}" alt="Upload">
+                            <span>Drag & drop your image here or click to browse</span>
+                        </div>
+                        <div class="file-upload-preview" id="upload-preview">
+                            <img id="preview-image" src="" alt="Preview">
+                            <span id="filename-display"></span>
+                            <button type="button" id="remove-file">×</button>
+                        </div>
+                        <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn-primary">Process Image</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="process-info">
+            <h2>How it works</h2>
+            <ol>
+                <li>Enter your email address</li>
+                <li>Upload your image (JPG or PNG)</li>
+                <li>Click "Process Image"</li>
+                <li>Our system will process your image using three algorithms:
+                    <ul>
+                        <li>Generate</li>
+                        <li>Compress Color</li>
+                        <li>Reconstruct Color</li>
+                    </ul>
+                </li>
+                <li>The 5 resulting images will be sent to your email</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
+<!-- templates/success.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Complete - Image Processing Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="success-card">
+            <div class="success-icon">✓</div>
+            <h1>Processing Complete!</h1>
+            
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="flash-messages">
+                  {% for message in messages %}
+                    <div class="alert">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+            
+            <p>Your image has been processed and the results have been sent to your email.</p>
+            <p>Please check your inbox (and spam folder) shortly.</p>
+            
+            <a href="{{ url_for('home') }}" class="btn-primary">Process Another Image</a>
+        </div>
+    </div>
+</body>
+</html>
